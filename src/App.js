@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import NewAction from './pages/NewAction';
 import SignUp from './pages/SignUp';
+import UpdateRegister from './pages/UpdateRegister';
 function App() {
   return (
     <BrowserRouter>
@@ -11,6 +12,7 @@ function App() {
         <Route path='/sign-up' element={<SignUp />}></Route>
         <Route path='/home/:name' element={<Home />}></Route>
         <Route path='/new-action/:actionType' element={<NewAction />}></Route>
+        <Route path='/update/:actionType' element={<UpdateRegister />}></Route>
       </Routes>
     </BrowserRouter>
   );

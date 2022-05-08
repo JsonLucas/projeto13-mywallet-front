@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { newMovimentation } from "../utils/movimentationRequest";
-import { Background, Field } from "../assets/styled/login/StyledLogin";
 import { useNavigate, useParams } from "react-router";
 import { ActionFields, ContainerFields, SingleActionField } from "../assets/styled/actions/StyledActions";
+import { Background, Field } from "../assets/styled/login/StyledLogin";
+import { updateMovimentation } from "../utils/movimentationRequest";
 import RowSubtitles from "./components/RowSubtitles";
 
-export default function NewAction(){
+export default function UpdateRegister(){
+    const previousValues = JSON.parse(localStorage.getItem('registerData'));
     const { actionType } = useParams();
-    const [value, setValue] = useState(null);
-    const [description, setDescription] = useState('');
+    const [value, setValue] = useState(previousValues.value);
+    const [description, setDescription] = useState(previousValues.description);
     const navigate = useNavigate();
     async function newAction(e){
         e.preventDefault();
         const type = actionType === 'entrada' ? 1 : 0;
+        const { registerId } = previousValues;
         const body = {
             value: value,
             description: description,
@@ -20,11 +22,10 @@ export default function NewAction(){
         }
         try{
             const { token, name } = JSON.parse(localStorage.getItem('loginData'));
-            const response = await newMovimentation(body, {headers: token});
+            const response = await updateMovimentation(body, {headers: {...token, registerId}});
             if(response.status < 400){
-                if(!window.confirm('movimentação feita com sucesso, deseja fazer outra movimentação?')){
-                    navigate(`/home/${name}`);
-                }
+                alert('alteração feita com sucesso.');
+                navigate(`/home/${name}`);
             }else{
                 alert(response.data);
                 navigate('/');
@@ -32,12 +33,10 @@ export default function NewAction(){
         }catch(e){
             console.log(e.message);
         }
-        setValue(null);
-        setDescription('');
     }
     return (
         <Background>
-            <RowSubtitles text={`Nova ${actionType}`} type='subtitle'/>
+            <RowSubtitles text={`Editar ${actionType}`} type='subtitle'/>
             <ContainerFields>
                 <ActionFields onSubmit={newAction}>
                     <SingleActionField>
@@ -49,7 +48,7 @@ export default function NewAction(){
                         onChange={(e) => { setDescription(e.target.value); }} />
                     </SingleActionField>
                     <SingleActionField>
-                        <Field value={`Salvar ${actionType}`} type='submit' />
+                        <Field value={`Atualizar ${actionType}`} type='submit' />
                     </SingleActionField>
                 </ActionFields>
             </ContainerFields>
