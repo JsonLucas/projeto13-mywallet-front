@@ -1,8 +1,8 @@
 import axiosConfig from "./axiosConfig.js";
 
-const registersRequest = async (headers) => {
+export const newMovimentation = async (body, headers) => {
     try{
-        const request = await axiosConfig.get('/registers', headers);
+        const request = await axiosConfig.post('/movimentation', body, headers);
         return request;
     }catch(e){
         console.log(e.message);
@@ -12,5 +12,3 @@ const registersRequest = async (headers) => {
     }
     return { status: 500, data: 'internal error.' };
 }
-
-export default registersRequest;

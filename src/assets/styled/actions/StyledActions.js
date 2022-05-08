@@ -8,7 +8,7 @@ export const ContainerFields = styled.div`
     box-sizing: border-box;
 `;
 
-export const ActionFields = styled.div`
+export const ActionFields = styled.form`
     width: 100%;
     box-sizing: border-box;
 `;

@@ -4,10 +4,22 @@ import {
     RowCreateAcc,
     CreateAcc,
 } from "../assets/styled/login/StyledLogin";
-import LoginCard from "./components/LoginCard";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
 import RowTitlePage from "./components/RowTitlePage";
+import LoginCard from "./components/LoginCard";
 export default function Login() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        try{
+            const loginData = JSON.parse(localStorage.getItem('loginData'));
+            if(loginData){
+                navigate(`/home/${loginData.username}`);
+            } // dar um get aki pr aver se esse token tá salvo, caso esteja, permitir o login
+        }catch(e){
+            console.log(e.message);
+        }
+    }, []);
     return (
         <Background>
             <ContainerFormLogin>

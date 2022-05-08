@@ -20,8 +20,13 @@ export default function LoginCard() {
             const response = await loginRequest(body);
             if(response.status === 200){
                 alert('login efetuado com sucesso.');
-                const loginToken = {authorization: `Bearer ${response.data.token}`}
-                localStorage.setItem('loginToken', JSON.stringify(loginToken));
+                const loginData = {
+                    token: {
+                        authorization: `Bearer ${response.data.token}`
+                    },
+                    username: response.data.name
+                };
+                localStorage.setItem('loginData', JSON.stringify(loginData));
                 navigate(`/home/${response.data.name}`);
             }else{
                 alert(response.data);

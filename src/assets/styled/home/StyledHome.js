@@ -92,7 +92,7 @@ export const SingleRegisterData = styled.p`
         : 'width: 80%;'
     }
     ${props => props.type === 'value' 
-        ? props.isCredit 
+        ? props.isCredit
             ? 'color: rgb(3, 172, 0);' 
             : 'color: rgb(199, 0, 0);' 
         : props.type === 'date'
