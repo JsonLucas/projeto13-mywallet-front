@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { newMovimentation } from "../utils/movimentationRequest";
+import { hasActiveSession } from "./Home";
 import { Background, Field } from "../assets/styled/login/StyledLogin";
 import { useNavigate, useParams } from "react-router";
 import { ActionFields, ContainerFields, SingleActionField } from "../assets/styled/actions/StyledActions";
@@ -7,9 +8,17 @@ import RowSubtitles from "./components/RowSubtitles";
 
 export default function NewAction(){
     const { actionType } = useParams();
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState(undefined);
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
+    useEffect(() => {
+        async function verifyActiveSession(){
+            if(!await hasActiveSession()){
+                navigate('/');
+            }
+        }
+        verifyActiveSession();
+    }, []);
     async function newAction(e){
         e.preventDefault();
         const type = actionType === 'entrada' ? 1 : 0;
@@ -32,7 +41,7 @@ export default function NewAction(){
         }catch(e){
             console.log(e.message);
         }
-        setValue(null);
+        setValue('');
         setDescription('');
     }
     return (

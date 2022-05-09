@@ -5,7 +5,7 @@ export default function HomeActions() {
     return (
         <RowActions>
             <SingleAction>
-                <Link to={`/new-action/${'entrada'}`}>
+                <Link to={`/action/${'entrada'}`}>
                     <WrapperSingleAction>
                         <SingleActionComponent type='icon'>
                             <ion-icon name="add-circle-outline"></ion-icon>
@@ -17,7 +17,7 @@ export default function HomeActions() {
                 </Link>
             </SingleAction>
             <SingleAction>
-                <Link to={`/new-action/${'saída'}`}>
+                <Link to={`/action/${'saída'}`}>
                     <WrapperSingleAction>
                         <SingleActionComponent type='icon'>
                             <ion-icon name="remove-circle-outline"></ion-icon>

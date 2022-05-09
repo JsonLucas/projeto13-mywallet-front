@@ -11,7 +11,7 @@ function App() {
         <Route exact path='/' element={<Login />}></Route>
         <Route path='/sign-up' element={<SignUp />}></Route>
         <Route path='/home/:name' element={<Home />}></Route>
-        <Route path='/new-action/:actionType' element={<NewAction />}></Route>
+        <Route path='/action/:actionType' element={<NewAction />}></Route>
         <Route path='/update/:actionType' element={<UpdateRegister />}></Route>
       </Routes>
     </BrowserRouter>

@@ -3,7 +3,6 @@ import axiosConfig from "./axiosConfig";
 const unlinkRegister = async (config) => {
     try{
         const request = await axiosConfig.delete('/registers', config);
-        console.log(request);
         return request;
     }catch(e){
         console.log(e.message);

@@ -3,7 +3,6 @@ import axiosConfig from "./axiosConfig";
 const signUp = async (body) => {
     try{
         const request = await axiosConfig.post('/sign-up', body);
-        console.log(request);
         return request;
     }catch(e){
         console.log(e.message);

@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { ActionFields, ContainerFields, SingleActionField } from "../assets/styled/actions/StyledActions";
+import { hasActiveSession } from "./Home";
 import { Background, Field } from "../assets/styled/login/StyledLogin";
 import { updateMovimentation } from "../utils/movimentationRequest";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { ActionFields, ContainerFields, SingleActionField } from "../assets/styled/actions/StyledActions";
 import RowSubtitles from "./components/RowSubtitles";
 
 export default function UpdateRegister(){
@@ -11,6 +12,14 @@ export default function UpdateRegister(){
     const [value, setValue] = useState(previousValues.value);
     const [description, setDescription] = useState(previousValues.description);
     const navigate = useNavigate();
+    useEffect(() => {
+        async function verifyActiveSession(){
+            if(!await hasActiveSession()){
+                navigate('/');
+            }
+        }
+        verifyActiveSession();
+    }, []);
     async function newAction(e){
         e.preventDefault();
         const type = actionType === 'entrada' ? 1 : 0;
@@ -21,17 +30,18 @@ export default function UpdateRegister(){
             type: type
         }
         try{
-            const { token, name } = JSON.parse(localStorage.getItem('loginData'));
+            const { token, username } = JSON.parse(localStorage.getItem('loginData'));
             const response = await updateMovimentation(body, {headers: {...token, registerId}});
             if(response.status < 400){
                 alert('alteração feita com sucesso.');
-                navigate(`/home/${name}`);
+                navigate(`/home/${username}`);
             }else{
                 alert(response.data);
                 navigate('/');
             }
         }catch(e){
             console.log(e.message);
+            navigate('/');
         }
     }
     return (

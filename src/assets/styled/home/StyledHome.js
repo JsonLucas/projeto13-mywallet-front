@@ -29,7 +29,8 @@ export const Registers = styled.div`
 
 export const ContentRegisters = styled.div`
     width: 95%;
-    height: auto;
+    height: 90%;
+    overflow-y: scroll;
     margin: auto;
     padding: 10px;
     box-sizing: border-box;
@@ -87,9 +88,9 @@ export const SingleRegisterData = styled.p`
     padding: 5px;
     font-weight: bold;
     font-family: "Raleway", sans-serif;
-    ${props => (props.type === 'date' || props.type === 'value') 
-        ? 'width: 20%;' 
-        : 'width: 80%;'
+    ${props => (props.type !== 'description') 
+        ? 'width: 18%; text-align: right;' 
+        : 'width: 82%;'
     }
     ${props => props.type === 'value' 
         ? props.isCredit
@@ -104,7 +105,7 @@ export const SingleRegisterData = styled.p`
 export const Balance = styled.div`
     width: 95%;
     position: absolute;
-    bottom: 5px;
+    bottom: 1vh;
     left: 2.5%;
     box-sizing: border-box;
     display: flex;
@@ -114,6 +115,6 @@ export const BalanceData = styled.p`
     font-family: "Raleway", sans-serif;
     ${props => props.type === 'text'
         ? 'font-weight: bolder; width: 80%;'
-        : 'font-weight: bold; width: 20%;'
+        : 'font-weight: bold; width: 20%; color: rgb(3, 172, 0); text-align: right;'
     }
 `; 

@@ -5,16 +5,20 @@ export default function SingleRegister({item, registerId}) {
     const navigate = useNavigate();
     async function unlink(){
         try{
-            const { token } = JSON.parse(localStorage.getItem('loginData'));
-            const response = await unlinkRegister({headers: {...token}, registerId});
-            if(response.status < 400){
-                alert('aeeehh');
-                window.location.reload();
-            }else{
-                alert('algum erro ocorreu.');
+            if(window.confirm('tem certeza que deseja excluir este registro?')){
+                const { token } = JSON.parse(localStorage.getItem('loginData'));
+                const response = await unlinkRegister({headers: {...token}, registerId});
+                if(response.status < 400){
+                    alert(response.data);
+                    window.location.reload();
+                }
+                alert(response.data);
             }
         }catch(e){
             console.log(e.message);
+            if(e.response){
+                alert(e.response.data);
+            }
         }
     }
     function updateRegister(){
@@ -36,7 +40,9 @@ export default function SingleRegister({item, registerId}) {
             <SingleRegisterData type='value' isCredit={item.type}>
                 {item.value}
             </SingleRegisterData>
-            <ion-icon name="close-outline" onClick={unlink}></ion-icon>
+            <SingleRegisterData type='icon'>
+                <ion-icon name="close-outline" onClick={unlink}></ion-icon>
+            </SingleRegisterData>
         </RegisterData>
     );
 }

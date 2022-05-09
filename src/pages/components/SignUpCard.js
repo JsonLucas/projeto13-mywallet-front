@@ -15,13 +15,21 @@ export default function SignUpCard() {
     const navigate = useNavigate();
     async function actionSignUp(e){
         e.preventDefault();
-        const body = {name, email, password};
-        const request = await signUp(body);
-        if(request.status < 400){
-            alert(request.data);
-            navigate('/');
-        }else{
-            alert(request.data);
+        try{
+            const body = {name, email, password};
+            if(password !== confirmPass){
+                alert('as senhas devem ser iguais.');
+            }else{
+                const request = await signUp(body);
+                if(request.status < 400){
+                    alert(request.data);
+                    navigate('/');
+                }else{
+                    alert(request.data);
+                }
+            }
+        }catch(e){
+            console.log(e.message);
         }
     }
     return (

@@ -15,7 +15,7 @@ export default function Login() {
             const loginData = JSON.parse(localStorage.getItem('loginData'));
             if(loginData){
                 navigate(`/home/${loginData.username}`);
-            } // dar um get aki pr aver se esse token tá salvo, caso esteja, permitir o login
+            } 
         }catch(e){
             console.log(e.message);
         }

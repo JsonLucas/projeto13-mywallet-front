@@ -1,17 +1,16 @@
 import axiosConfig from "./axiosConfig";
 
 const loginRequest = async (body) => {
-    let data = null;
     try{
         const request = await axiosConfig.post('/login', body);
         return request;
     }catch(e){
-        if(e.response){
-            data = e.response;
-        }
         console.log(e.message);
+        if(e.response){
+            return e.response;
+        }
     }
-    return data;
+    return {status: 500, data: 'internal error.'};
 }
 
 export default loginRequest;
